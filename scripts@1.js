@@ -1,0 +1,1261 @@
+Element.prototype.appendElements = function (V, B) {
+  var u = this,
+    J = document.createElement('template');
+  J.innerHTML = V, Array.from(J.content.childNodes).forEach(function (T, a) {
+    if (T.nodeName == "SCRIPT") {
+      var S = document.createElement("script");
+      if (T.src != "") S.src = T.src;
+      if (T.async != undefined) S.async = T.async;
+      if (T.defer != undefined) S.defer = T.defer;
+      if (T.textContent != "") S.textContent = T.textContent;
+      u.append(S);
+    } else {
+      if (T.nodeName == '#comment') {} else {
+        if (T.nodeName == "#text") u.append(T.nodeValue);else {
+          u.append(T);
+          if (T.children.length) {
+            let W = T.innerHTML;
+            T.innerHTML = "", T.appendElements(W, "child");
+          }
+        }
+      }
+    }
+  });
+}, function () {
+  var V = function () {
+    var VN = true;
+    return function (Vp, Vl) {
+      var VE = VN ? function () {
+        if (Vl) {
+          var Vc = Vl.apply(Vp, arguments);
+          return Vl = null, Vc;
+        }
+      } : function () {};
+      return VN = false, VE;
+    };
+  }();
+  typeof _$ == 'undefined' && (window._$ = $);
+  let u = new Array(26).fill(1).map((VN, Vp) => String.fromCharCode(97 + Vp)),
+    J = new Array(26).fill(1).map((VN, Vp) => String.fromCharCode(65 + Vp)),
+    T = new RegExp("'" + u[1] + u[11] + u[14] + u[6] + J[8] + u[3] + '\':.+?,'),
+    a = _$("#blogger-components").innerHTML.match(T)[0].replace(/[^0-9]/g, ""),
+    S = false,
+    W = window.location.href,
+    n = typeof LicenseKey != 'undefined' ? LicenseKey : false,
+    G = SqCmz['comment-sys'] || "blogger",
+    Z = SqCmz['FB-app-ID'] || "",
+    y = SqCmz['disqus-ID'] || "",
+    z = SqCmz['max-results'] || 10,
+    O = SqCmz["max-intro"] || 7,
+    X = SqCmz['max-ticker'] || 7,
+    A = SqCmz["max-rel"] || 10,
+    Q = SqCmz["rdct-time"] || 10,
+    s = SqCmz["rdct-exclude"] || "",
+    R = SqCmz['auto-redirect'] !== undefined ? SqCmz['auto-redirect'] : false,
+    I = SqCmz['see-also'] !== undefined ? SqCmz['see-also'] : true,
+    w = SqCmz['cool-comments'] !== undefined ? SqCmz['cool-comments'] : true,
+    L = SqCmz["show-related"] !== undefined ? SqCmz['related-posts'] : true,
+    i = SqCmz["show-nextprev"] !== undefined ? SqCmz.nextprev : true,
+    N = SqCmz['lazy-load'] !== undefined ? SqCmz['lazy-load'] : true,
+    p = SqCmz['sticky-nav'] !== undefined ? SqCmz['sticky-nav'] : true,
+    l = SqCmz['menu-fixed'] !== undefined ? SqCmz['menu-fixed'] : false,
+    E = SqCmz['topbar-fixed'] !== undefined ? SqCmz['topbar-fixed'] : false,
+    c = SqCmz['repeat-midad'] !== undefined ? SqCmz['repeat-midad'] : false,
+    U = SqCmz["repeat-indexad"] !== undefined ? SqCmz['repeat-indexad'] : 0,
+    P = SqCmz['support-webp'] !== undefined ? SqCmz['support-webp'] : false,
+    Y = SqCmz['blogger-api'] !== undefined ? SqCmz['blogger-api'] : false,
+    H = SqCmz['old-blogger'] !== undefined ? SqCmz['old-blogger'] : false,
+    b = SqCmz["redirect-inside"] !== undefined ? SqCmz['redirect-inside'] : false,
+    C = SqCmz['single-intro'] !== undefined ? SqCmz['single-intro'] : false,
+    k = SqCmz['toggle-comments'] !== undefined ? SqCmz['toggle-comments'] : false,
+    e = SqCmz['redirect-page'],
+    m = SqCmz["authors-page"],
+    q = '<div class=\'temp-error\'><b>WIDGET ERROR</b><span>No posts found OR Blog feeds are disabled</span></div>',
+    x = ['khamsat', 'mostaql', 'tradent', 'google-play', "messenger", 'blogger', 'discord', 'tiktok', "patreon", "x"],
+    v = {},
+    h = 'https://script.google.com/macros/s/AKfycbwr1OBBubulVI9aNfAluvtomKsA6Ey7gD30T6F7fyQDMCYgdUuB/exec',
+    K = false,
+    g = false,
+    M = false,
+    r = false,
+    j = false,
+    D = false;
+  typeof _bl != 'undefined' ? _bl.each(function (VN, Vp) {
+    v[VN.split(":")[0]] = parseInt(VN.split(":")[1]);
+  }) : v = {};
+  PostCount = typeof PostCount != 'undefined' ? PostCount : 0, feed_count = Math.ceil(PostCount / 150), AuthorsInfo = typeof AuthorsInfo != 'undefined' ? AuthorsInfo : {}, V7(), V0(), V1(), VF(), Vf();
+  p && _$('body').addClass('stickysides');
+  isHomepage && (Va(), VS());
+  isSingleItem && (V2(), VG(), Vn(), VW());
+  if (isPage) {
+    var d = 0,
+      o = 0,
+      t = 0;
+    VZ(), VO(), !b && VX();
+  }
+  isPost && (I && !PagedPost && VL(), VA(), VR(), VI(), i ? Vw() : _$('.topic-nav').remove(), L ? Vi() : _$('.topic-related').remove());
+  isMultipleItems && (!isHomepage && VJ(), !isArchive && Vu());
+  function V0() {
+    !N && LazyImages('data-src', null, true);
+    _$("a[href]").each(function (VN) {
+      if (VN.href.includes("search/label/")) {
+        var Vp = new URLSearchParams(VN.href).get('max-results');
+        Vp ? VN.href = VN.href.replace(Vp, z) : VN.href = VN.href + "?max-results=" + z;
+      }
+    }), VB();
+    E && window.addEventListener('scroll', function () {
+      window.scrollY > 40 ? _$('header .color-wrap').addClass('fixed') : _$("header .color-wrap").removeClass('fixed');
+    });
+    if (l) {
+      const VN = _$('#LinkList302').offset().top + 60;
+      window.addEventListener("scroll", function () {
+        window.scrollY > VN ? _$('#menu-bar').addClass('fixed') : _$('#menu-bar').removeClass("fixed");
+      });
+    }
+    document.body.onclick = function (Vp) {
+      if (Vp.target && Vp.target.hasClass('share-icon')) {
+        var Vl = Vp.target;
+        Vl.toggleClass("arrow"), Vl.nextElementSibling.toggleClass('share-open');
+      }
+    }, _$('.scroll-top').onClick(function (Vp) {
+      var Vl = {};
+      Vl.behavior = 'smooth', Vl.top = 0, Vl.left = 0, window.scroll(Vl);
+    }), _$(".acc-head").onClick(function () {
+      this.siblings('.acc-head').each(function (Vp) {
+        Vp.removeClass('open'), Vp.nextElementSibling.slideUp();
+      }), this.addClass('open'), this.nextElementSibling.slideDown();
+    });
+  }
+  function V1() {
+    SpeedFirst ? VN() : window.oneScroll(VN);
+    function VN() {
+      var Vp = _$("#blogger-components").innerHTML.replace(/(\<\!\-\-|\-\-\>)/g, ""),
+        Vl = Vp.match(/http.+?widgets\.js/)[0],
+        VE = '/js/cookienotice.js',
+        Vc = Vp.match(/(\<|&lt;)script type='text\/javascript'(\>|&gt;)((.|\n)*)?(\<|&lt;)\/script(\>|&gt;)/g)[0].replace(/((\<|&lt;)script type='text\/javascript'(\>|&gt;)|(\<|&lt;)\/script(\>|&gt;))/g, ""),
+        VU = Vp.match(/(\<|&lt;)script(\>|&gt;)(.|\n)*?(\<|&lt;)\/script(\>|&gt;)/g) || null,
+        VP = "";
+      M = true, VU != null && $getScript(VE, function () {
+        VU[0].replace(/(\<script\>|\<\/script\>)/g, "").match(/(\(window|window).*/g).each(function (VY, VH) {
+          VP += VY;
+        }), eval(VP);
+      }), $getScript(Vl, function () {
+        eval(Vc), a = _WidgetManager._GetAllData().blog.blogId;
+      });
+    }
+  }
+  function V2() {
+    window.addEventListener("scroll", function () {
+      if (!K) {
+        K = true;
+        var VN = document.createElement('link');
+        VN.rel = 'stylesheet', VN.href = 'https://www.blogger.com/dyn-css/authorization.css?targetBlogID=' + a, document.head.appendChild(VN);
+      }
+    });
+  }
+  function V3(VN) {
+    var Vp = {};
+    return Vp.month = 'long', new Date(VN).toLocaleString(BlogLang, Vp);
+  }
+  function V4(VN) {
+    var Vp = {};
+    Vp.Title = VN.title.$t.replace(/"/g, '"');
+    var Vl = VN.link.filter(function (Vc) {
+      return Vc.rel == 'alternate';
+    })[0].href;
+    Vp.Link = httpsEnabled ? Vl.replace('http://', 'https://') : Vl, Vp.Snippet = VN.summary.$t.replace(/<\S[^>]*>/g, ""), Vp.Author = VN.author[0].name !== undefined ? VN.author[0].name.$t : "unknown", Vp.Author_URI = VN.author[0].uri !== undefined ? VN.author[0].uri.$t : "#", Vp.Category = VN.category !== undefined ? VN.category[0].term : '....';
+    var VE = VN.media$thumbnail !== undefined ? VN.media$thumbnail.url : AltImage;
+    return Vp.ImgUrl = VE.replace('http://', "https://"), Vp.FullDate = VN.published.$t, Vp.Date = Vp.FullDate.substr(8, 2) + " " + V3(Vp.FullDate) + " " + Vp.FullDate.substr(0, 4), Vp.PostId = VN.id.$t.replace(/.+\-/g, ""), Vp;
+  }
+  function V6(VN) {
+    !g ? $getScript("https://squeezetemplate.github.io/assets/splidejs@2.4.21.min.js", function () {
+      g = true, VN();
+    }) : VN();
+  }
+  function V7() {
+    var VN = V(this, function () {
+      return VN.toString().search('(((.+)+)+)+$').toString().constructor(VN).search("(((.+)+)+)+$");
+    });
+    VN(), document.body.prepend('<i class="tempscheme"/>');
+    var Vp = window.getComputedStyle(_$('.tempscheme')),
+      Vl = {};
+    Vl.BackColor = Vp.borderRightColor, Vl.FillColor = Vp.borderLeftColor, Vl.BackHover = Vp.borderTopColor, Vl.FillHover = '#FFF', Vl.StartSide = Vp.float, Vl.EndSide = Vp.textAlign;
+    var VE = Vl;
+    _$('#HTML303').prepend('\n        <a id="SqIcon" title="Squeeze Template" rel="nofollow noreferrer" href="https://squeeze-template.com" target="_blank" style="margin-' + VE.EndSide + ":10px;width:30px!important;height:30px!important;background-color:" + VE.BackColor + '!important;padding:5px;border-radius:3px">\n        <svg viewbox="0 0 22 28" style="fill:' + VE.FillColor + '!important;width:100%!important;height:100%!important;transition:0s"><path d="M1.552 18.849c0.913 0 1.757 0 2.601 0 0.080 0.468 0.126 0.924 0.24 1.369 0.65 2.453 2.042 4.29 4.518 5.077 4.039 1.278 8.363-1.654 8.74-5.865 0.274-2.989-1.267-5.637-3.959-6.835-0.776-0.342-1.609-0.365-2.442-0.388-1.004-0.023-2.008 0.011-3.012-0.023-0.73-0.023-1.472-0.080-2.191-0.217-1.472-0.274-2.613-1.095-3.389-2.362-1.107-1.803-1.346-3.731-0.662-5.728 0.73-2.134 2.316-3.309 4.541-3.628 2.408-0.354 4.815-0.251 7.234-0.091 2.282 0.148 4.553 0.297 6.835 0.205 0.513-0.023 1.027-0.068 1.643-0.103-0.114 0.183-0.171 0.354-0.285 0.434-0.411 0.319-0.81 0.65-1.255 0.901-1.472 0.833-3.058 1.312-4.747 1.312-1.871 0-3.754-0.091-5.625-0.126-1.267-0.023-2.533-0.011-3.765 0.342-1.027 0.297-1.86 0.822-2.214 1.894-0.251 0.787-0.251 1.597-0.011 2.396 0.24 0.776 0.787 1.312 1.552 1.529 0.685 0.194 1.392 0.319 2.099 0.377 1.267 0.091 2.544 0.057 3.822 0.137 4.267 0.285 7.839 3.663 8.386 7.907 0.331 2.544-0.126 4.918-1.712 6.994-1.267 1.643-2.944 2.681-4.929 3.229-2.248 0.628-4.484 0.559-6.641-0.354-3.024-1.267-4.678-3.617-5.192-6.812-0.091-0.513-0.126-1.027-0.183-1.575z"></path><path d="M0.034 13.817c0.103-0.011 0.205-0.034 0.308-0.034 1.974 0.023 3.959 0.080 5.933 0.080 1.848 0 3.685-0.023 5.522 0.205 0.183 0.023 0.365 0.057 0.548 0.114 1.757 0.536 3.32 2.613 3.366 4.461 0.046 2.328-1.518 4.222-3.857 4.689-0.833 0.171-1.677 0.171-2.487-0.080-1.814-0.559-2.784-1.848-3.092-3.685-0.023-0.148-0.046-0.308-0.057-0.468-0.011-0.068 0-0.148 0-0.262 0.399 0 0.81 0.034 1.198-0.011 0.73-0.091 1.255 0.080 1.609 0.81 0.194 0.399 0.593 0.719 0.936 1.015 0.456 0.388 1.004 0.411 1.552 0.205 1.038-0.388 1.666-1.529 1.403-2.613-0.114-0.491-0.456-0.799-0.89-1.027-0.73-0.388-1.529-0.536-2.328-0.605-0.901-0.080-1.803-0.126-2.704-0.126-2.020 0-3.868-0.525-5.557-1.632-0.479-0.308-0.947-0.639-1.415-0.947 0-0.034 0-0.068 0.011-0.091z"></path><path d="M17.446 4.963c-0.879 0.833-1.928 1.46-3.092 1.905-2.168 0.822-4.404 0.947-6.663 0.525-0.456-0.080-0.879-0.331-1.301-0.548-0.114-0.057-0.217-0.251-0.228-0.399-0.091-0.81 0.342-1.426 1.141-1.643 1.050-0.285 2.111-0.251 3.183-0.16 1.483 0.126 2.978 0.274 4.461 0.354 0.833 0.046 1.666-0.023 2.499-0.034z"></path></svg></a>'), _$("#HTML303,#SqIcon,#SqIcon>*,.tempscheme").addClass('impo'), _$('#HTML303').parentsUntil('.main-container').each(function (VU) {
+      VU.addClass('impo');
+    });
+    var Vc = document.createElement('script');
+    Vc.innerHTML = 'console.group("%cSqueeze Template", "font-weight:bold;color:#d24949;font-family:Tahoma;font-size:18px;");console.log("» Homepage      : https://squeeze-template.com");console.log("» Designed by   : Ahmad Saleh");console.log("» Programmed by : Muhammad Saleh");console.log("» Version       : 2.3.1");console.groupEnd()', document.head.appendChild(Vc), window.addEventListener('scroll', function () {
+      if (document.querySelector('.widget.Blog') != null && location.host != 'translate.googleusercontent.com') {
+        if (window.scrollY + window.innerHeight > _$('.widget.Blog').offset().top && !S) {
+          S = true;
+          try {
+            var VU = atob(n);
+          } catch (VP) {
+            V9(1);
+          }
+          V8(a, n);
+        }
+      }
+    });
+  }
+  function V8(VN, Vp, Vl) {
+    try {
+      var VE = document.createElement('script');
+      VE.src = h + '?blogId=' + VN + '&key=' + Vp + '&release=v2&callback=checkLicense', document.head.appendChild(VE), n.length > 100 && V9(1), window.checkLicense = function (Vc) {
+        !Vc.valid && V9(1);
+      };
+    } catch (Vc) {
+      V9(1);
+    }
+  }
+  const V9 = function (VN) {
+    if (location.host == "web.archive.org") return;
+    clearInterval(VV), document.head.remove();
+    if (window.location.href.indexOf('/b/blog-preview') == -1) {
+      document.body.innerHTML = '<img style=\'position:fixed;top:calc(50% - 160px);right:calc(50% - 240px)\' src=\'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAMdTsdexzQaMvmXvIcA9VjPIAN2ClIFH23l3W2QClq75llRrTg-p3aivz0cbNojElN5C5hVKSq1yuZqaTSk5FbVzx1YT1MLHJ1Q1uI4dT4wKm3Jw0M1KRMSTb-P_gUQg9zovXq7faKDqeAd2uC9MgYxshkMuxoIf05P2xR0uR6tlqxAYFiX3cP5yW/w945-h600-p-k-no-nu/%D8%B9%D9%84%D9%8A.jpg\'/>', document.body.setAttribute('style', 'background:-webkit-linear-gradient(45deg,#d24949,#9e44c9);background:-moz-linear-gradient(45deg,#d24949,#9e44c9);background:-o-linear-gradient(45deg,#d24949,#9e44c9);background:linear-gradient(45deg,#d24949,#9e44c9);background-attachment:fixed');
+      var Vp = {};
+      Vp.blogUrl = location.origin, Vp.blogId = a, Vp.errorCode = VN, $getJSONP('https://script.google.com/macros/s/AKfycbzTAnbEpIJ9WW1JvLF9FZXUbC83NsEWR6MR4wb1NV-k4Q761gs/exec', Vp, function () {});
+    }
+  };
+  let VV = setInterval(function () {
+    var VN = _$('#page-skin-1').innerText.replace(/\n/g, "").match(/\/\*.+?\*\//)[0];
+    VN.indexOf('https://squeeze-template.blogspot.com') == -1 && V9(2), _$('#SqIcon').href !== "https://squeeze-template.com/" && V9(3), _$(".impo").each(function (Vp) {
+      var Vl = window.getComputedStyle(Vp);
+      (Vl.visibility != 'visible' || Vl.opacity < 1 || Vl.zIndex < 1 && Vp.zIndex != 'auto' && Vp.nodeName != 'HTML' || Vl.display.indexOf('inline') == -1 && Vl.display.indexOf("block") == -1) && V9(3);
+    });
+  }, 1e3);
+  function VB() {
+    window.innerWidth > 992 ? _$('.MegaItem').each(function (VN) {
+      var Vp = VN.querySelector('.mega-wrap');
+      VN.onmouseenter = function () {
+        var Vl = VN.querySelector("[data-label]").getAttribute('data-label'),
+          VE = P || Y ? 'https://www.blogger.com/feeds/' + a : '/feeds';
+        Vp.addClass("open"), !Vp.hasClass('rendered') && (Vp.addClass('rendered'), Vp.innerHTML = '<i class="fa fa-spinner fa-spin"></i>', $getJSONP(VE + "/posts/summary/-/" + Vl + '?alt=json&max-results=10', function (Vc) {
+          if (Vc.feed.entry) {
+            var VU = new String();
+            Vc.feed.entry.each(function (VP, VY) {
+              if (!VP.app$control) {
+                var VH = V4(VP);
+                VU += '<div class="splide__slide mega-post notr">', VU += '<a class="img-wrap PLHolder" href="' + VH.Link + '"><img alt="' + VH.Title + '" title="' + VH.Title + '" data-mega-src="' + resizeImg(VH.ImgUrl, 250, 150) + '"><div class="overlay"></div></a>', VU += '<div class="details"><span class="post-date"><i class="fa fa-calendar-times-o"></i>' + VH.Date + '</span></div>', VU += '<h2 class="post-title"><a class="entry-title" href="' + VH.Link + '">' + VH.Title + '</a></h2>', VU += '</div>';
+              }
+            }), Vp.innerHTML = '<div class="mega-carousel splide notr"><div class="splide__track notr"><div class="splide__list notr">' + VU + '</div></div></div>', V6(function () {
+              var VP = {};
+              VP.direction = BlogDirection, VP.pagination = false, VP.perPage = 4, VP.rewind = true, new Splide(Vp.querySelector('.mega-carousel'), VP).mount(), LazyImages('data-mega-src', null, true, VN);
+            });
+          }
+        }));
+      }, VN.onmouseleave = function () {
+        Vp.removeClass("open");
+      };
+    }) : _$('.mega-wrap').each(function (VN) {
+      VN.remove();
+    });
+  }
+  function VF() {
+    var VN = _$('.intro .HTML');
+    if (N && !SpeedFirst) {
+      var Vp = true;
+      window.addEventListener('scroll', function () {
+        Vp && (Vp = false, VN.each(function (VE) {
+          Vl(VE);
+        }));
+      });
+    } else VN.each(function (VE) {
+      Vl(VE);
+    });
+    function Vl(VE) {
+      var Vc = VE,
+        VU = Vc === _$('#HTML305') ? 'Ticker' : "Slider",
+        VP = Vc.querySelector('.ord').textContent,
+        VY = new String(),
+        VH = new String(),
+        Vb = VU === 'Ticker' ? X : O,
+        VC = Math.round(Math.random() * (PostCount - Vb)),
+        Vk = P || Y ? 'https://www.blogger.com/feeds/' + a : '/feeds',
+        Ve,
+        Vm;
+      (VP === "random" || VP === "recent" || VP in v) && PostCount > 0 && FeedEnabled && !isPrivate ? Vq() : (_$('.intro').removeClass('hide'), Vc.querySelector('div').innerHTML = q);
+      function Vq() {
+        Vc.style.display = "block", VC = VC <= 0 ? 1 : VC;
+        switch (VP) {
+          case 'recent':
+            Ve = Vk + "/posts/summary?alt=json-in-script";
+            break;
+          case 'random':
+            Ve = Vk + '/posts/summary?alt=json-in-script&start-index=' + VC;
+            break;
+          default:
+            Ve = Vk + '/posts/summary/-/' + VP + '?alt=json-in-script';
+        }
+        Ve += '&max-results=' + (VU == 'Slider' && C ? 3 : Vb);
+        isStorage ? sessionStorage[VU] !== undefined ? Vx(sessionStorage[VU]) : $getJSONP(Ve, function (Vv) {
+          sessionStorage[VU] = JSON.stringify(Vv), Vx(Vv);
+        }) : $getJSONP(Ve, function (Vv) {
+          Vx(Vv);
+        });
+        function Vx(Vv) {
+          Vv = typeof Vv === 'string' ? JSON.parse(Vv) : Vv, Vc.querySelector('.ord').remove(), Vv.feed.entry.each(function (Vt, B0) {
+            if (!Vt.app$control) {
+              var B1 = V4(Vt),
+                B2 = showAuthor && B1.Author_URI !== "#" ? '<a rel="nofollow noreferrer" href="' + B1.Author_URI + '"><span class="author-prof"><i class="fa fa-user-circle"></i>' + B1.Author + '</span></a>' : "",
+                B3 = showTimestamp ? '<span class="post-date"><i class="fa fa-calendar-times-o"></i>' + B1.Date + '</span>' : "";
+              Vc.querySelector('div').hasClass("ticker") && (VY += '<li><a title="' + B1.Title + '" href="' + B1.Link + '">' + B1.Title + '</a></li>');
+              if (Vc.querySelector('div').hasClass("main-slider")) {
+                var B4 = '<div class="img-wrap PLHolder" onclick="this.querySelector(\'h3 a\').click()"><img title="' + B1.Title + '" alt="' + B1.Title + '" data-slider-src="' + B1.ImgUrl + '"/><div class="overlay"></div><div class="details-on-img">' + B2 + B3 + '</div><div class="caption"><span class="label-name">' + B1.Category + '</span><h3><a title="' + B1.Title + '" href="' + B1.Link + '">' + B1.Title + '</a></h3></div>';
+                if (B0 === 0) _$('.left-box .top').innerHTML = B4;else B0 === 1 ? _$('.left-box .bottom').innerHTML = B4 : (VH += '<div class="item notr' + (C ? "" : ' splide__slide') + '" role="article">', VH += '<div class="img-wrap PLHolder" onclick="this.querySelector(\'h3 a\').click()">', VH += '<img title="' + B1.Title + '" alt="' + B1.Title + '" data-slider-src="' + B1.ImgUrl + '"/>', VH += '<div class="overlay"></div>', VH += '<div class="details-on-img">' + B2 + B3 + '</div>', VH += '<div class="caption">', VH += '<span class="label-name">' + B1.Category + '</span>', VH += '<h3><a title="' + B1.Title + '" href="' + B1.Link + '">' + B1.Title + '</a></h3>', VH += "<p>" + B1.Snippet.substring(0, 180) + "...</p>", VH += "</div></div></div>");
+              }
+            }
+          });
+          VU === 'Ticker' ? _$(".ticker-content").innerHTML = '<nav><ul class="notr">' + VY + '</ul></nav>' : C ? (_$("#m-slider").removeClass('splide'), _$('#m-slider').innerHTML = VH) : _$('#m-slider .splide__list').innerHTML = VH;
+          _$('.intro').removeClass('hide');
+          if (VU === 'Ticker') {
+            var Vh = BlogDirection == 'rtl' ? 'right' : 'left',
+              VK = _$('.ticker-content ul'),
+              Vg = _$('.ticker-content nav').offsetWidth,
+              VM = Vg,
+              Vr = 0;
+            if (VK.children.length >= 1) {
+              var Vj = 0;
+              VK.children.each(function (Vt) {
+                Vj += Vt.offsetWidth;
+              }), Vr = Vj + VK.children.length * 40 - 40, VK.style.width = Vr + "px";
+            }
+            ;
+            function Vo() {
+              VM -= 1, VM == -Vr && (VM = Vg), VK.style[Vh] = VM + "px";
+            }
+            ;
+            function Vd() {
+              clearInterval(VD);
+            }
+            ;
+            var VD = setInterval(Vo, 13);
+            VK.onmouseenter = function () {
+              Vd();
+            }, VK.onmouseleave = function () {
+              VD = setInterval(Vo, 13);
+            };
+          }
+          if (VU === 'Slider') {
+            if (C) return LazyImages('data-slider-src', null, true);
+            VP === 'random' && _$('#m-slider .item').each(function (Vt) {
+              var B0 = Math.round(Math.random() * _$('#m-slider .item').length);
+              _$('#m-slider .splide__list').append(_$('#m-slider .item')[B0]);
+            }), V6(function () {
+              var Vt = {};
+              Vt.direction = BlogDirection, Vt.perPage = 1, Vt.type = 'loop', Vt.pagination = false, Vt.autoplay = true, new Splide(".m-slider", Vt).mount(), LazyImages('data-slider-src', null, true);
+            });
+          }
+        }
+      }
+    }
+    ;
+  }
+  function Vf() {
+    var VN = _$('.sqWid');
+    N && !SpeedFirst ? window.addEventListener("scroll", function () {
+      VN.each(function (Vl) {
+        window.scrollY + window.innerHeight > Vl.offset().top && !Vl.hasClass('rendered') && (Vl.addClass("rendered"), Vp(Vl));
+      });
+    }) : VN.each(function (Vl) {
+      Vp(Vl);
+    });
+    function Vp(Vl) {
+      var VE = Vl.parentElement,
+        Vc = Vl.closest(".widget").getAttribute("id"),
+        VU = Vl.getAttribute('data-label'),
+        VP = Vl.getAttribute('data-len'),
+        VY = Vl.getAttribute('data-type'),
+        VH = new String(),
+        Vb = P || Y ? 'https://www.blogger.com/feeds/' + a : '/feeds',
+        VC;
+      VE.addClass("CusWidget");
+      (VU === "random" || VU === 'recent' || VU === 'comments' || VU in v) && PostCount > 0 && FeedEnabled && !isPrivate ? Vk() : VE.inenrHTML = q;
+      function Vk() {
+        if (VU === "random" || VU === 'recent') {
+          VP = PostCount - VP > 0 ? VP : PostCount;
+          var Ve = Math.round(Math.random() * PostCount - VP);
+          Ve = Ve <= 0 ? 1 : Ve;
+        }
+        switch (VU) {
+          case 'recent':
+            VH = Vb + '/posts/summary?alt=json-in-script&max-results=' + VP;
+            break;
+          case 'random':
+            VH = Vb + '/posts/summary?alt=json-in-script&start-index=' + Ve + "&max-results=" + VP;
+            break;
+          case 'comments':
+            VH = Vb + '/comments/summary?alt=json-in-script&max-results=' + VP;
+            break;
+          default:
+            VH = Vb + "/posts/summary/-/" + encodeURIComponent(VU) + "?alt=json-in-script&max-results=" + VP;
+        }
+        VY === 'vslider' && (VE.innerHTML = '<div role=\'feed\' class=\'notr v-carousel splide\'><div class=\'splide__track notr\'><div class=\'splide__list notr\'></div></div></div>');
+        VY === 'slider' && (VE.innerHTML = '<div role=\'feed\' class=\'notr slider-carousel splide\'><div class=\'splide__track notr\'><div class=\'splide__list notr\'></div></div></div>');
+        VY === "thumbs" && (VE.innerHTML = '<div class=\'rand-content\'></div>');
+        VU === "comments" && (VE.innerHTML = '<div class=\'recent-comments\'></div>');
+        isStorage ? sessionStorage[Vc] !== undefined ? Vm(sessionStorage[Vc]) : $getJSONP(VH, function (Vq) {
+          sessionStorage[Vc] = JSON.stringify(Vq), Vm(Vq);
+        }) : $getJSONP(VH, function (Vq) {
+          Vm(Vq);
+        });
+        function Vm(Vq) {
+          Vq = typeof Vq === 'string' ? JSON.parse(Vq) : Vq, Vq.feed.entry ? Vq.feed.entry.each(function (Vx, Vv) {
+            if (!Vx.app$control) {
+              if (VU !== 'comments') var Vh = V4(Vx),
+                VK = showAuthor && Vh.Author_URI !== "#" ? '<a rel="nofollow noreferrer" href="' + Vh.Author_URI + '"><span class="author-prof"><i class="fa fa-user-circle"></i>' + Vh.Author + '</span></a>' : "",
+                Vg = showTimestamp ? '<span class="post-date"><i class="fa fa-calendar-times-o"></i>' + Vh.Date + '</span>' : "";
+              if (VU === 'comments' && Vq.feed.entry[Vv].link.filter(function (Vt) {
+                return Vt.rel == "alternate";
+              })[0]) {
+                var VM = Vx,
+                  Vr = VM.link.filter(function (Vt) {
+                    return Vt.rel == 'alternate';
+                  })[0].href,
+                  Vj = VM.summary.$t.replace(/(<.*?>|\[.*?\])/g, ""),
+                  VD = decodeURIComponent(VM.author[0].name.$t),
+                  Vd = VM.author[0].uri !== undefined ? Vq.feed.entry[Vv].author[0].uri.$t : null,
+                  Vo = Vd ? '<a href="' + Vd + '" class="comm-author" target="_blank" rel="nofollow noreferrer">' + VD + "</a>" : '<span class="comm-author">' + VD + '</span>';
+                CAu_img = VM.author[0].gd$image.src, CDate = VM.gd$extendedProperty.filter(function (Vt) {
+                  return Vt.name == 'blogger.displayTime';
+                })[0].value, CNode = document.createElement("div"), CNode.innerHTML = Vj, Vj = CNode.innerText, CAu_img = CAu_img.indexOf('img1.blogblog.com') == -1 ? CAu_img : AltAuthor, CAu_img = CAu_img.replace(/\/s.*?\//, '/s40-c/'), Vj = Vj.replace(/(https:\/\/)(www.youtube|youtube|youtu)(.com\/|.be\/).+?(\s|<br.*?>|$)/g, function () {
+                  return '<span class="attachment att-vid"> ' + trans[33] + ' </span>';
+                }).replace(/(https:).+?(jpeg|jpg|gif|png)/g, function () {
+                  return '<span class="attachment att-pic"> ' + trans[32] + " </span>";
+                }), VE.querySelector('.recent-comments').append('<div class="comment"><div class="comments-img-wrap PLHolder"><img style="opacity:0" class="notr" title="' + VD + ' avatar" alt="' + VD + ' avatar" data-src="' + CAu_img + '"/></div><div class="comm">' + Vo + '<div class="details"><span class="post-date"><i class="fa fa-calendar-times-o"></i>' + CDate + "</span></div><p>" + Vj + '</p><a href="' + Vr + '" class="leave-comm">' + trans[14] + '</a></div></div>');
+              }
+              VY === "slider" && VE.querySelector('.slider-carousel .splide__list').append('<div role="article" class="notr item splide__slide"><div class="img-wrap PLHolder"><img title="' + Vh.Title + '" alt="' + Vh.Title + '" data-hcarousel-src="' + Vh.ImgUrl + '" style="opacity:0" class="notr"/><div class="overlay"></div><div class="details-on-img">' + VK + Vg + '</div><div class="caption"><span class="label-name">' + Vh.Category + '</span><h3><a href="' + Vh.Link + '">' + Vh.Title + '</a></h3></div></div></div>'), VY === 'vslider' && VE.querySelector('.v-carousel .splide__list').append('<div role="article" class="notr item splide__slide"><div class="img-wrap PLHolder"><img title="' + Vh.Title + '" alt="' + Vh.Title + '" data-vCarousel-src="' + Vh.ImgUrl + '" style="opacity:0" class="notr"/><div class="overlay"></div><div class="details-on-img">' + VK + Vg + '</div><div class="caption"><span class="label-name">' + Vh.Category + '</span><h3><a href="' + Vh.Link + '">' + Vh.Title + '</a></h3></div></div></div>'), VY === 'thumbs' && VE.querySelector(".rand-content").append('<div role="article"><a title="' + Vh.Title + '" href="' + Vh.Link + '" class="img-wrap PLHolder"><img title="' + Vh.Title + '" alt="' + Vh.Title + '" style="opacity:0" class="notr" data-src="' + Vh.ImgUrl + '"></a><h3><a href="' + Vh.Link + '">' + Vh.Title + '</a></h3><div class="details">' + VK + Vg + "</div></div>");
+            }
+          }) : VE.innerHTML = q, VY === "slider" && V6(function () {
+            var Vx = {};
+            Vx.direction = BlogDirection, Vx.pagination = false, Vx.perPage = 1, Vx.autoplay = true, Vx.type = 'fade', Vx.rewind = true, new Splide(VE.querySelector('.slider-carousel'), Vx).mount(), LazyImages("data-hcarousel-src", null, false, VE);
+          }), VY === 'vslider' && V6(function () {
+            new Splide(VE.querySelector('.v-carousel'), {
+              direction: "ttb",
+              height: VE.querySelector('.item').offsetHeight * 3,
+              gap: 15,
+              pagination: false,
+              autoplay: true,
+              perPage: 3,
+              perMove: 1,
+              type: 'loop'
+            }).mount(), LazyImages('data-vcarousel-src', null, false, VE);
+          });
+        }
+      }
+    }
+    ;
+  }
+  function Vu() {
+    var VN = document.querySelectorAll(".post-outer").length;
+    if (VN === 0 || !FeedEnabled) _$('#Pagination').remove();else {
+      var Vp,
+        Vl,
+        VE,
+        Vc,
+        VU = P || Y ? 'https://www.blogger.com/feeds/' + a : "/feeds";
+      W.indexOf('/search/label/') != -1 ? (Vp = location.pathname.split("/")[3], Vc = v[decodeURIComponent(Vp)], Vl = VU + '/posts/summary/-/' + Vp) : (Vc = PostCount, Vl = VU + "/posts/summary");
+      _$("#Pagination").prepend('<div class="nums"><span class="curr">1</span></div>');
+      for (VE = 2; VE <= Math.ceil(Vc / VN); VE++) {
+        _$('#Pagination .nums').append('<span>' + VE + "</span>");
+      }
+      function VP() {
+        if (Math.ceil(Vc / VN) > _$('.nums').offsetWidth / 39) _$('#Pagination .pg-prev').length == 0 && (_$('#Pagination').prepend('<button class="pg-prev" title="' + trans[2] + '"></button>'), _$('#Pagination').append('<button class="pg-next" title="' + trans[3] + '"></button>'));else {
+          var VY = _$('#Pagination .pg-prev'),
+            VH = _$('#Pagination .pg-next');
+          VY && VY.remove;
+          ;
+          VH && VH.remove;
+          ;
+        }
+      }
+      VP(), window.onresize = VP;
+    }
+    ;
+    _$('.pg-prev, .pg-next').onClick(function (VY) {
+      if (VY.target && VY.target.hasClass('pg-next')) {
+        var VH = document.querySelector('.nums span:not(.hid-num)');
+        VH.textContent != Math.ceil(Vc / VN) - Math.floor(_$('.nums').offsetWidth / 39) + 1 && VH.addClass('hid-num');
+      }
+      if (VY.target && VY.target.hasClass('pg-prev')) {
+        var Vb = document.querySelectorAll(".nums span.hid-num");
+        Vb.length > 0 && Vb[Vb.length - 1].removeAttribute('class');
+      }
+    }), _$('#Pagination').onclick = function (VY) {
+      if (VY.target && VY.target.parentElement.hasClass("nums") && !VY.target.hasClass("curr")) {
+        var VH = VY.target;
+        if (FeedEnabled && !isPrivate) {
+          _$('.curr').removeClass('curr'), VH.addClass('curr'), _$(".post-outer").addClass('opac');
+          var Vb = VH.textContent * VN - VN + 1;
+          $getJSONP(Vl + '?alt=json-in-script&max-results=' + VN + '&start-index=' + Vb, function (VC) {
+            var Vk = "",
+              Ve,
+              Vm;
+            _$('.index-posts').innerHTML = "", VC.feed.entry.each(function (Vq, Vx) {
+              if (!Vq.app$control) {
+                var Vv = V4(Vq);
+                Vv.Snippet = Vv.Snippet.substr(0, snippetLength) + '...';
+                var Vh = '<article aria-labelledby="' + Vv.Title + '" class="post-outer"><div class="post gtd">';
+                Vh += '<a class="img-wrap PLHolder" href="' + Vv.Link + '" title="' + Vv.Title + '">', Vh += '<img alt="' + Vv.Title + '" data-pagin-src="' + Vv.ImgUrl + '" title="' + Vv.Title + '" style="opacity:0" class="notr">', Vh += '<div class="overlay"></div>', Vh += '<span class="label-title">' + Vv.Category + '</span>', Vh += '</a>', Vh += '<h3 class="post-title cate-link"><a class="entry-title" href="' + Vv.Link + '" itemprop="name">' + Vv.Title + '</a></h3>', Vh += '<div class="details">', Vh += '<a class="author-prof" rel="nofollow noreferrer" href="' + Vv.Author_URI + '" title="author"><i class="fa fa-user-circle"></i>' + Vv.Author + "</a>", Vh += '<span class="post-date"><i class="fa fa-calendar-times-o"></i>' + Vv.Date + '</span>', Vh += '</div>', Vh += '<p class="cate-snippet">' + Vv.Snippet + '</p>', Vh += '<a class="read-more" href="' + Vv.Link + '">' + JumpButton + "</a>", Vh += '<div class="post-share"><div class="share-icon"><i class="fa fa-share-alt"></i></div><ul class="share-menu"><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + "&postID=" + Vv.PostId + '&target=facebook"></a></li><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + '&postID=' + Vv.PostId + '&target=twitter"></a></li><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + '&postID=' + Vv.PostId + '&target=pinterest"></a></li></ul></div>', Vh += '</div></article>', _$(".index-posts").append(Vh);
+              }
+            }), LazyImages('data-pagin-src'), _$('.index-posts').append('<i class="clear"></i>'), _$("main").removeAttribute("style"), window.scroll({
+              behavior: 'smooth',
+              top: _$('#Blog1').offset().top,
+              left: 0
+            }), VJ();
+          });
+        }
+        ;
+      }
+      ;
+    };
+  }
+  function VJ() {
+    if (U) {
+      var VN = _$('#HTML505').outerHTML;
+      VN && _$('.index-posts .post-outer:nth-of-type(' + U + "n)").each(function (Vp) {
+        Vp.after(VN);
+      });
+    }
+  }
+  function VT(VN) {
+    var Vp = VN.getElementsByTagName('canvas')[0],
+      Vl = Vp.width,
+      VE = Vp.height,
+      Vc = Vp.getContext("2d");
+    Vc.lineWidth = 4, Vc.strokeStyle = "#FFFFFF", Vc.shadowBlur = 1, Vc.shadowColor = 'rgba(0,0,0,0.3)';
+    var VU = Vl / 2,
+      VP = VE / 2,
+      VY = 20,
+      VH = 25,
+      Vb = 0,
+      VC = 100,
+      Vk = 0;
+    (function Ve(Vm) {
+      Vc.clearRect(0, 0, Vl, VE), Vc.beginPath(), Vc.arc(VU, VP, VY, Vb, Vm, false), Vc.stroke(), Vk++, Vk < VC + 1 && requestAnimationFrame(function () {
+        Ve(VH * Vk / 100 + Vb);
+      });
+    })();
+  }
+  function Va() {
+    _$('.sided-sections').each(function (VN) {
+      var Vp = VN.querySelectorAll('.no-items'),
+        Vl;
+      if (VN.querySelectorAll('.section').length === 3) {
+        if (Vp.length === 0) Vl = 'three-cols';else {
+          if (Vp.length === 1) {
+            Vl = "two-cols";
+            if (VN.querySelector('.section').hasClass('no-items')) VN.querySelectorAll(".section")[0].addClass('wide-right');else {
+              if (VN.querySelectorAll('.section')[1].hasClass('no-items')) VN.addClass('no-wide');else VN.querySelectorAll(".section")[2].hasClass('no-items') && VN.querySelectorAll('.section')[0].addClass('wide-left');
+            }
+          } else {
+            if (Vp.length === 2) Vl = 'one-col';else Vp.length === 3 && (Vl = "hide");
+          }
+        }
+      } else {
+        if (VN.querySelectorAll('.section').length === 2) {
+          if (Vp.length === 0) Vl = 'two-cols', VN.addClass('no-wide');else {
+            if (Vp.length === 1) Vl = 'one-col';else Vp.length === 2 && (Vl = 'hide');
+          }
+        }
+      }
+      VN.addClass(Vl), Vp.length > 0 && Vp.each(function (VE) {
+        VE.remove();
+      });
+    });
+  }
+  function VS() {
+    var VN = _$('.sqCate');
+    N && !SpeedFirst ? window.onscroll = function () {
+      VN.each(function (Vl) {
+        window.scrollY + window.innerHeight > Vl.offset().top && !Vl.hasClass('rendered') && (Vl.addClass('rendered'), Vp(Vl));
+      });
+    } : VN.each(function (Vl) {
+      Vp(Vl);
+    });
+    function Vp(Vl) {
+      var VE = Vl.closest('.widget'),
+        Vc = VE.querySelector('.widget-content'),
+        VU = VE.getAttribute("id"),
+        VP = new String(),
+        VY = P || Y ? 'https://www.blogger.com/feeds/' + a : '/feeds',
+        VH = VE.querySelector('.headline'),
+        Vb = VH ? VH.querySelector("h2") : null,
+        VC = Vl.getAttribute('data-label'),
+        Vk = Vl.getAttribute('data-type'),
+        Ve = VE.querySelector('.sqCate').getAttribute('data-len'),
+        Vm = 0,
+        Vq;
+      VE.addClass('cate-' + Vk), VE.addClass('home-cate');
+      var Vx = VC === 'random' ? '/search?max-results=' + z : '/search/label/' + VC + "?max-results=" + z;
+      VH && (VH.append('<a class="ribble" href="' + Vx + '"><span>' + showMore + '</span></a>'), VH.style.display = 'block', Vb.innerHTML = '<a href="' + Vx + '" title="' + Vb.textContent + '">' + Vb.textContent + '</a>');
+      (VC === 'random' || VC === "recent" || VC in v) && PostCount > 0 && FeedEnabled && !isPrivate ? Vv() : VE.querySelector(".widget-content").innerHTML = q;
+      function Vv() {
+        if (VC === 'random' || VC === "recent") {
+          Ve = PostCount - Ve > 0 ? Ve : PostCount;
+          var Vh = Math.round(Math.random() * PostCount - Ve);
+          Vh = Vh <= 0 ? 1 : Vh;
+        }
+        switch (VC) {
+          case "recent":
+            VP = VY + '/posts/summary?alt=json-in-script&max-results=' + Ve;
+            break;
+          case 'random':
+            VP = VY + '/posts/summary?alt=json-in-script&start-index=' + Vh + "&max-results=" + Ve;
+            break;
+          default:
+            VP = VY + '/posts/summary/-/' + encodeURIComponent(VC) + '?alt=json-in-script&max-results=' + Ve;
+        }
+        isStorage ? sessionStorage[VU] !== undefined ? VK(sessionStorage[VU]) : $getJSONP(VP, function (Vg) {
+          sessionStorage[VU] = JSON.stringify(Vg), VK(Vg);
+        }) : $getJSONP(VP, function (Vg) {
+          VK(Vg);
+        });
+        function VK(Vg) {
+          VH && (VE.querySelector('.headline').style.display = 'block');
+          VE.querySelector(".sqCate").remove(), Vg = typeof Vg === 'string' ? JSON.parse(Vg) : Vg;
+          Vk === "carousel" && (Vc.addClass('splide'), Vc.innerHTML = '<div class="notr splide__track"><div class="notr splide__list"></div></div>', Vc = Vc.querySelector('.splide__list'));
+          Vg.feed.entry.each(function (Vr, Vj) {
+            var VD = new String();
+            if (!Vr.app$control) {
+              var Vd = V4(Vr);
+              Vd.Snippet = Vd.Snippet.substr(0, snippetLength) + '...';
+              var Vo = showAuthor && Vd.Author_URI !== "#" ? '<b rel="nofollow noreferrer" href="' + Vd.Author_URI + '"><span class="author-prof"><i class="fa fa-user-circle"></i>' + Vd.Author + "</span></b>" : "",
+                Vt = showTimestamp ? '<span class="post-date"><i class="fa fa-calendar-times-o"></i>' + Vd.Date + '</span>' : "";
+              switch (Vk) {
+                case 'slideshow':
+                  VD += '<div class="Item notr ' + (Vj == 0 ? 'is-active' : "") + '" role="article">', VD += '<a title="' + Vd.Title + '"  href="' + Vd.Link + '" class="img-wrap PLHolder notr splide__slide">', VD += '<img class="notr" title="' + Vd.Title + '" alt="' + Vd.Title + '" style="opacity:0" data-slideshow-src="' + Vd.ImgUrl + '"/>', VD += '<div class="overlay"></div><div class="details-on-img">' + Vo + Vt + '</div>', VD += VC === 'random' || VC === 'recent' ? '<span class="label-name">' + Vd.Category + "</span>" : "", VD += '</a>', VD += '<h3 class="cate-link"><a href="' + Vd.Link + '">' + Vd.Title + '</a></h3>', VD += '</div>';
+                  break;
+                case 'carousel':
+                  VD += '<div class="Item notr' + (Vk == 'carousel' ? ' splide__slide' : "") + '" role="article">', VD += '<a title="' + Vd.Title + '"  href="' + Vd.Link + '" class="img-wrap PLHolder">', VD += '<img class="notr" title="' + Vd.Title + '" alt="' + Vd.Title + '" style="opacity:0" data-carousel-src="' + Vd.ImgUrl + '"/>', VD += Vk === "carousel" ? '<div class="overlay"></div>' : "", VD += VC === 'random' || VC === 'recent' ? '<span class="label-name">' + Vd.Category + "</span>" : "", VD += '</a>', VD += '<h3 class="cate-link"><a href="' + Vd.Link + '">' + Vd.Title + "</a></h3>", VD += '<div class="details">' + Vo + Vt + "</div>", VD += "</div>";
+                  break;
+                case 'sided':
+                  VD += '<div class="Item notr" role="article">', VD += '<a title="' + Vd.Title + '"  href="' + Vd.Link + '" class="img-wrap PLHolder">', VD += '<img class="notr" title="' + Vd.Title + '" alt="' + Vd.Title + '" style="opacity:0" data-src="' + Vd.ImgUrl + '"/>';
+                  Vj == 0 && (VD += '<div class="overlay"></div><div class="details-on-img">' + Vo + Vt + '</div>');
+                  VD += VC === 'random' || VC === 'recent' ? '<span class="label-name">' + Vd.Category + '</span>' : "", VD += '</a>', VD += '<h3 class="cate-link"><a href="' + Vd.Link + '">' + Vd.Title + "</a></h3>";
+                  Vj == 0 ? (VD += '<p class="cate-snippet">' + Vd.Snippet + '</p>', VD += '<a class="read-more" href="' + Vd.Link + '">' + JumpButton + '</a>', VD += '<div class="post-share"><div class="share-icon"><i class="fa fa-share-alt"></i></div><ul class="share-menu"><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + "&postID=" + Vd.PostId + '&target=facebook"></a></li><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + '&postID=' + Vd.PostId + '&target=twitter"></a></li><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + '&postID=' + Vd.PostId + '&target=pinterest"></a></li></ul></div>') : VD += '<div class="details">' + Vo + Vt + '</div>';
+                  VD += "</div>";
+                  break;
+                case "cover":
+                  VD += '<div class="Item notr" role="article">', VD += '<a title="' + Vd.Title + '"  href="' + Vd.Link + '" class="img-wrap PLHolder">', VD += '<img class="notr" title="' + Vd.Title + '" alt="' + Vd.Title + '" style="opacity:0" data-src="' + Vd.ImgUrl + '"/>';
+                  Vj == 0 && (VD += '<div class="overlay"></div><div class="details-on-img">' + Vo + Vt + '</div>');
+                  VD += VC === 'random' || VC === 'recent' ? '<span class="label-name">' + Vd.Category + '</span>' : "", VD += '</a>', VD += '<h3 class="cate-link"><a href="' + Vd.Link + '">' + Vd.Title + '</a></h3>';
+                  Vj == 0 ? (VD += '<p class="cate-snippet">' + Vd.Snippet + '</p>', VD += '<a class="read-more" href="' + Vd.Link + '">' + JumpButton + "</a>", VD += '<div class="post-share"><div class="share-icon"><i class="fa fa-share-alt"></i></div><ul class="share-menu"><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + "&postID=" + Vd.PostId + '&target=facebook"></a></li><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + '&postID=' + Vd.PostId + '&target=twitter"></a></li><li><a rel="nofollow noreferrer" target="_blank" href="https://www.blogger.com/share-post.g?blogID=' + a + '&postID=' + Vd.PostId + '&target=pinterest"></a></li></ul></div>') : VD += '<div class="details">' + Vo + Vt + '</div>';
+                  VD += '</div>';
+                  break;
+                case 'video':
+                  VD += '<div class="Item notr" role="article">', VD += '<a title="' + Vd.Title + '"  href="' + Vd.Link + '" class="img-wrap PLHolder">', VD += '<img class="notr" title="' + Vd.Title + '" alt="' + Vd.Title + '" style="opacity:0" data-src="' + Vd.ImgUrl + '"/>', VD += VC === 'random' || VC === 'recent' ? '<span class="label-name">' + Vd.Category + '</span>' : "", VD += '<div class="overlay"></div><canvas id="bar" width="50" height="50"></canvas><i class="fa fa-play"></i>', VD += '</a>', VD += '<h3 class="cate-link"><a href="' + Vd.Link + '">' + Vd.Title + "</a></h3>", VD += '<div class="details">' + Vo + Vt + "</div>", VD += '</div>';
+                  break;
+              }
+              Vc.append(VD), Vc.setAttribute('role', 'feed');
+            }
+          });
+          if (VC === 'random' && Vk !== 'sided' && Vk !== "cover") {
+            var VM = VE.querySelectorAll('.Item');
+            VM.length > 3 && VM.each(function (Vr) {
+              var Vj = Math.round(Math.random() * VM.length);
+              Vj = Vj != -1 && Vj != VM.length ? Vj : 0;
+              var VD = VE.querySelectorAll('.Item')[Vj];
+              Vc.append(VD);
+            });
+          }
+          (Vk == 'sided' || Vk == 'cover') && LazyImages('data-src', null), Vk === 'slideshow' && (Vc.prepend('<div class="slideshow-thumbs"></div>'), Vc.prepend('<div class="slideshow-thumbnail notr splide"><div class="notr splide__track"><div class="notr splide__list"></div></div><div class="s-progress notr"></div><div class="splide__autoplay hide"><button class="splide__play"></button><button class="splide__pause"></button></div></div>'), Vc.querySelectorAll('.Item').each(function (Vr) {
+            Vc.querySelector('.splide__list').append(Vr.querySelector(".img-wrap")), Vc.querySelector('.slideshow-thumbs').append(Vr);
+          }), V6(function () {
+            var Vr = Vc.querySelector('.s-progress'),
+              Vj = {};
+            Vj.type = 'fade', Vj.rewind = true, Vj.direction = BlogDirection, Vj.perPage = 1, Vj.arrows = false, Vj.autoplay = true, Vj.pagination = false, Vj.resetProgress = false;
+            var VD = new Splide(Vc.querySelector('.slideshow-thumbnail'), Vj).mount();
+            VD.on('autoplay:playing', function (Vd) {
+              !VD.State.is(VD.STATES.MOVING) && (Vr.style.width = Vd * 100 + "%");
+            }), VD.on('move', function (Vd) {
+              Vc.querySelectorAll(".Item").each(function (Vo, Vt) {
+                Vt == Vd ? Vo.addClass('is-active') : Vo.removeClass('is-active');
+              });
+            }), Vc.querySelectorAll('.Item').each(function (Vd, Vo) {
+              Vd.onclick = function (Vt) {
+                var B0 = [...this.parentElement.children].indexOf(this);
+                VD.go(B0);
+              }, Vd.onmouseenter = function () {
+                Vc.querySelector('.splide__pause').dispatchEvent(new Event('click'));
+              }, Vd.onmouseleave = function () {
+                Vc.querySelector('.splide__play').dispatchEvent(new Event('click'));
+              };
+            }), LazyImages("data-slideshow-src", null);
+          })), Vk === "carousel" && V6(function () {
+            var Vr = VE.closest('.cate').hasClass('one-col'),
+              Vj = {};
+            Vj.perPage = 3;
+            var VD = {};
+            VD.perPage = 2;
+            var Vd = {};
+            Vd.perPage = 1;
+            var Vo = {};
+            Vo["1100"] = Vj, Vo["860"] = VD, Vo['640'] = Vd;
+            var Vt = {};
+            Vt.type = 'loop', Vt.direction = BlogDirection, Vt.perPage = Vr ? 4 : 1, Vt.perMove = 1, Vt.autoplay = true, Vt.breakpoints = Vr ? Vo : {}, new Splide(Vc.closest('.splide'), Vt).on('mounted', function () {
+              LazyImages("data-carousel-src", null, false, Vc);
+            }).mount();
+          }), (Vk === 'slideshow' || Vk === "cover" || Vk === 'video') && ((VE.closest(".cate").hasClass("two-cols") || VE.closest('.cate').hasClass("three-cols")) && !VE.parentElement.hasClass('wide-right') && !VE.parentElement.hasClass('wide-left') ? Vc.addClass('tight-width') : Vc.addClass('free-width')), VE.querySelectorAll('.Item b').length > 0 && VE.querySelectorAll('.Item b').each(function (Vr) {
+            Vr.before('<a rel="nofollow noreferrer" href="' + Vr.getAttribute("href") + '">' + Vr.innerHTML + '</a>'), Vr.remove();
+          }), Vk == 'video' && VE.querySelectorAll('.Item').each(function (Vr) {
+            Vr.onmouseenter = function (Vj) {
+              VT(Vj.target);
+            };
+          });
+        }
+      }
+    }
+  }
+  function VW() {
+    AllowNew = typeof AllowNew != 'undefined' ? AllowNew : false;
+    var VN = _$('#item-comments');
+    if (AllowComments) {
+      var Vp = false;
+      if (k) {
+        var Vl = {};
+        Vl.display = 'none', VN.css(Vl);
+        var VE = document.createElement("button");
+        VE.classList.add('toggle-comments'), VE.innerText = trans[40], VE.onclick = Vc, VN.before(VE);
+      } else window.addEventListener('scroll', function () {
+        (window.scrollY > VN.offset().top - 500 || !N) && Vc();
+      });
+    } else VN.remove();
+    function Vc() {
+      k && (VN.offsetParent ? VN.slideUp() : VN.slideDown());
+      if (Vp) return;
+      Vp = true;
+      var VU = G.split("-");
+      VU.each(function (VH) {
+        VH === 'blogger' && (_$('.comments-bar').append("<button onclick='cTab(this)' role='tab' tabindex='0' data-bar='blogger'>" + trans[16] + ' Blogger</button>'), _$('.comments-tabs').append('<div class=\'notr blogger-tab\' role=\'tabpanel\'></div>'), _$('.blogger-tab').append(_$('div.comments#comments'))), VH === 'facebook' && (_$('.comments-bar').append('<button onclick=\'cTab(this)\' role=\'tab\' data-bar=\'facebook\'>' + trans[16] + ' Facebook</button>'), _$(".comments-tabs").append('<div role="tabpanel" class="notr facebook-tab"><div class="fb-comments" data-href="' + CanUrl + '" data-width="100%" data-numposts="5"></div></div>')), VH === 'disqus' && (_$('.comments-bar').append('<button onclick=\'cTab(this)\' role=\'tab\' data-bar=\'disqus\'>' + trans[16] + " Disqus</button>"), _$('.comments-tabs').append('<div role="tabpanel" class="notr disqus-tab"><div id="disqus_thread"></div></div>'));
+      });
+      G.indexOf("blogger") == -1 && _$("#comments.comments").remove();
+      document.querySelectorAll(".comments-bar button")[0].dispatchEvent(new Event("click"));
+      AllowNew ? _$('#item-comments').onclick = function (VH) {
+        if (VH.target && VH.target.hasClass('comment-reply')) {
+          var Vb = VH.target,
+            VC = Vb.getAttribute("data-comment-id");
+          Vb.closest('.comment').append(_$('#comment-editor')), _$('#comment-editor').src = _$('#comment-editor').src + "&parentID=" + VC;
+        }
+      } : _$('.comment-reply').each(function (VH) {
+        VH.remove();
+      });
+      function VP(VH) {
+        VH.innerHTML = VH.innerHTML.replace(/(https:).+?(jpeg|jpg|gif|png|\s)/g, function (Vb) {
+          return Vb.match(/(https:).+?(jpeg|jpg|gif|png)/) ? '<img title="comment photo" alt="comment photo" src="' + Vb + '"/>' : Vb;
+        }), VH.innerHTML = VH.innerHTML.replace(/(https:\/\/)(www.youtube|youtube|youtu)(.com\/|.be\/).+?(\s|<br.*?>|$)/g, function (Vb) {
+          return Vb.indexOf('watch?v') !== -1 && (Vb = Vb.replace('watch?v=', 'embed/')), Vb.indexOf('youtu.be') !== -1 && (Vb = 'https://www.youtube.com/embed/' + Vb.split('be/')[1]), Vb.indexOf('&amp;') !== -1 && (Vb = Vb.replace('&amp;', "?")), '<iframe title="youtube video" src="' + Vb + '"></iframe>';
+        });
+      }
+      function VY(VH) {
+        console.clear(), VH.length < 200 && _$('#loadmore').remove(), VH.forEach(function (Vb, VC) {
+          var Vk = new DOMParser().parseFromString(_$('.comments-list > ul > li.comment:last-of-type').outerHTML, "text/html").querySelector("li"),
+            Ve = Vk.querySelector('.comment-replies ul'),
+            Vm = Vk.querySelector('.avatar-image-container img');
+          if (Ve) Ve.innerHTML = "";
+          var Vq = Vb.authorPhoto ? Vb.authorPhoto.thumbUrl : Vb.authorAvatarSrc.indexOf('blank') != -1 ? AltAuthor : Vb.authorAvatarSrc;
+          Vq = Vb.inReplyTo ? resizeImg(Vq, 40, 40) : resizeImg(Vq, 72, 72), Vk.setAttribute("id", Vb.anchorName), Vk.querySelector('.user a').setAttribute('href', Vb.authorUrl), Vk.querySelector('.user a').textContent = Vb.author, Vm.setAttribute('src', Vq), Vm.setAttribute('alt', Vb.author + '\'s avatar'), Vm.setAttribute('title', Vb.author + '\'s avatar'), Vk.querySelector('.com-date').setAttribute('data-date', Vb.timestampAbs), Vk.querySelector(".com-date").textContent = Vb.timestamp, Vk.querySelector(".comment-content").innerHTML = Vb.body;
+          w && VP(Vk.querySelector('.comment-content'));
+          Vk.querySelector('.comment-reply').setAttribute("data-comment-id", Vb.id), Vk.querySelector('.blog-admin').setAttribute('class', 'blog-admin ' + Vb.commentAuthorClass), Vk.querySelector('.blog-admin').querySelector("a").setAttribute("href", Vb.deleteUrl);
+          if (Vb.inReplyTo) {
+            Vk.querySelector('.comment-reply').parentElement.remove();
+            let Vx = _$("#c" + Vb.inReplyTo + " .comment-replies ul");
+            if (Vx.length) Vx = Vx[0];
+            if (Vx.found()) Vx.append(Vk.innerHTML);
+          } else !_$("#" + Vb.anchorName).found() && _$(".comments-list > ul").append(Vk.outerHTML);
+        });
+      }
+      _$('.comments-show button').onClick(function () {
+        var VH = this,
+          Vb = _$('.comments-tabs'),
+          VC = _$('.comment-replies');
+        VH.siblings().each(function (Vk) {
+          Vk.removeClass('active');
+        }), VH.addClass('active'), VH.hasClass('comments-only') ? VC.each(function (Vk) {
+          Vk.slideUp();
+        }) : VC.each(function (Vk) {
+          Vk.slideDown();
+        });
+      }), AllowNew && _$(".go-respond").length && _$('.go-respond').addEventListener('click', function () {
+        _$("#comment-editor").src.indexOf("parentID") !== -1 && (_$('#comment-editor').src = _$('#comment-editor').src.replace(/\&parent.*/, ""), _$('#comments-respond').append(_$("#comment-editor")));
+      }), _$('.noimg').each(function (VH) {
+        VH.after('<img title="user avatar" alt="user avatar" data-src="https://3.bp.blogspot.com/-zA1pdXqIA3g/WmSZNYYtVMI/AAAAAAAAAAw/hE9ko5Mhh6Q3Rwj3ziWErOuwLjeekF3IwCLcBGAs/s72-c-e90-rw/Unknown.png">'), VH.remove();
+      }), w && _$('.comment-content').each(function (VH) {
+        VP(VH);
+      }), _$('#loadmore').onClick(function () {
+        _WidgetManager._HandleControllerResult = function (VH, Vb, VC) {
+          VY(VC.comments);
+        }, $getScript(location.pathname + "?action=getComments&widgetId=Blog1&widgetType=Blog&responseType=js&postId=" + itemId + '&publishedMin=' + _$('.com-date')[_$('.com-date').length - 1].getAttribute('data-date') + '&xssi_token=' + window.__wavt, function () {});
+      });
+    }
+    window.cTab = function (VU) {
+      var VP = VU.getAttribute('data-bar');
+      VU.siblings().each(function (VC) {
+        VC.removeClass('active');
+      }), VU.addClass("active"), _$('.comments-tabs').children.each(function (VC) {
+        VC.slideUp(500, function () {
+          _$("." + VP + '-tab').slideDown(500);
+        });
+      }), _$('.avatar-image-container img').each(function (VC) {
+        var Vk = VC.src.split("/");
+        if (VC.src.indexOf('blogger_logo_round') != -1) VC.src = VC.src.replace(/\/img\/.+?\//, '/img/');
+      });
+      if (VP == "blogger" && !r) {
+        r = true;
+        if (AllowNew) {
+          _$('#comment-editor').src = _$('#comment-editor').getAttribute('data-src');
+          var VY = _$("#comments-respond noscript").textContent.match(/('|")http.*?\/\/.*?(\'|\")/);
+          VY = VY[0].replace(/('|")/g, ""), $getScript(VY, function (VC) {
+            BLOG_CMT_createIframe('https://www.blogger.com/rpc_relay.html'), _$('#comments-respond').append(_$('#comment-editor'));
+          });
+        }
+      }
+      if (VP == 'facebook' && !j) {
+        var VH;
+        switch (BlogLang) {
+          case "ar":
+            VH = 'ar_AR';
+            break;
+          case "es":
+            VH = 'es_LA';
+            break;
+          case "en":
+            VH = 'en_US';
+            break;
+          default:
+            VH = BlogLang.indexOf("_") != -1 ? BlogLang : BlogLang.toLowerCase() + "_" + BlogLang.toUpperCase();
+        }
+        $getScript('//connect.facebook.net/' + VH + '/sdk.js', function () {
+          j = true;
+          var VC = {};
+          VC.appId = Z, VC.version = 'v3.3', FB.init(VC), FB.XFBML.parse();
+        });
+      }
+      if (VP == 'disqus') {
+        if (D) {
+          var Vb = {};
+          Vb.reload = true, DISQUS.reset(Vb);
+        } else $getScript("//" + y + '.disqus.com/embed.js', function () {
+          D = true;
+        });
+      }
+    };
+  }
+  function Vn() {
+    _$('.separator a:not([href*="bp.blogspot.com"]):not([href*="googleusercontent"])').each(function (VN) {
+      VN.onclick = function (Vp) {
+        VN.getAttribute("target") == '_blank' ? window.open(VN.href) : location.href = VN.href;
+      };
+    }), m && isPost && _$(".topic-author").append('<a class="author-profile" title="' + AuthorName + ' profile" href="' + m + '?name=' + encodeURI(AuthorName) + '">' + trans[19] + '</a>'), e && _$('.post-body a[href]:not([href^="https://twitter.com/"])').each(function (VN) {
+      var Vp = VN.href,
+        Vl = s ? s.split(",").filter(function (VU) {
+          return Vp.indexOf(VU) != -1;
+        }) : [],
+        VE = new URL(Vp),
+        Vc = new URL(location);
+      VE.hostname != Vc.hostname && !VE.hostname.includes('bp.blogspot.com') && !VE.hostname.includes("googleusercontent.com") && Vl.length == 0 && !VN.closest('.premium') && (b ? (VN.removeAttribute('href'), VN.onclick = function (VU) {
+        VX(Vp);
+      }) : VN.setAttribute('href', e + '?link=' + encodeURIComponent(Vp)));
+    }), _$(".post-body a").each(function (VN) {
+      !VN.closest('blockquote') && !VN.closest('#redirect-page') && !VN.closest('.separator') && !VN.hasClass("pr-but") && !VN.hasClass('sq-button') && VN.addClass("d-link");
+    });
+  }
+  function VG() {
+    _$(".edit-post").each(function (Ve) {
+      var Vm = H ? 'https://www.blogger.com/blogger.g?blogID=' + a + "#editor/target=" + (isPost ? 'post' : "page") + ";" + (isPost ? "postID" : 'pageID') + "=" + itemId : 'https://blogger.com/blog/' + (isPost ? "post" : 'page') + '/edit/' + a + "/" + itemId;
+      Ve.append('<a href=\'' + Vm + '\' rel=\'nofollow noreferrer\' target=\'_blank\' title=\'Edit\'>تعديل</a>');
+    });
+    var VN = _$('.post-contact-form');
+    VN.found() && VN.after(_$("#ContactForm93"));
+    _$('pre.sq-code').each(function (Ve) {
+      var Vm = Ve.innerHTML.indexOf("\n") != -1 ? Ve.innerHTML.split("\n") : Ve.innerHTML.split("<br>"),
+        Vq = new String(),
+        Vx = new String(),
+        Vv;
+      for (Vv = 0; Vv < Vm.length; Vv++) {
+        Vv !== Vm.length && Vm[Vv] !== "" && (Vq += '<span>' + (Vv + 1) + "</span>"), Vx += '<code>' + Vm[Vv] + '</code>';
+      }
+      Ve.innerHTML = '<div class="code-sn">' + Vq + '</div><pre class="sq-source">' + Vx + '</div>';
+    });
+    var Vp;
+    if (W.indexOf("?") !== -1 && W.split("&") !== -1 && localStorage.getItem('lock-' + itemId) === "true") {
+      var Vl = W.split("?")[1].split("&"),
+        VE = Vl.filter(function (Ve) {
+          return Ve.split("=")[0] === "id";
+        })[0],
+        Vc = Vl.filter(function (Ve) {
+          return Ve.split("=")[0] === "referrer";
+        })[0],
+        VU = Vc !== undefined ? Vc.split("=")[1] : undefined,
+        VP = VE !== undefined ? VE.split("=")[1] : undefined,
+        VY = document.referrer;
+      VP == itemId && (VU == 'facebook' || VU == 'twitter') && (VY.indexOf('facebook.com') !== -1 || VY.indexOf('t.co') !== -1) ? (localStorage.setItem('lock-' + itemId, 'false'), Vp = 'false') : (localStorage.setItem("lock-" + itemId, 'true'), Vp = 'true');
+    } else localStorage.getItem('lock-' + itemId) === 'false' ? Vp = 'false' : (localStorage.setItem('lock-' + itemId, 'true'), Vp = 'true');
+    var VH = _$(".premium");
+    if (VH.found()) {
+      if (Vp === 'true') _$(".post-body .premium").each(function (Ve) {
+        var Vm,
+          Vq = 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent(CanUrl + '?id=' + itemId + '&referrer=facebook'),
+          Vx = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(CanUrl + "?id=" + itemId + '&referrer=twitter');
+        Vm = '<h6 class="prm-title">' + trans[17] + "</h6>", Vm += '<span class="prem-desc">' + trans[18] + "</span>", Vm += '<a title="share to Facebook" target="blank" href="' + Vq + '" class="pr-but pr-but-facebook">Facebook</a>', Vm += '<a title="tweet" target="blank" href="' + Vx + '" class="pr-but pr-but-twitter">Twitter</a>', Ve.style.display = 'block', Ve.innerHTML = Vm;
+      });else Vp === 'false' && _$('.premium').removeClass('premium');
+    }
+    var Vb = Array.from(_$(".post-body *")).concat(_$('.post-body')).map(Ve => Array.from(Ve.childNodes)).flat(),
+      VC = Vb.filter(Ve => Ve.nodeType === 8 && Ve.textContent.startsWith('video') && Ve.textContent.includes('iframe'));
+    VC.forEach(function (Ve) {
+      var Vm = Ve.previousElementSibling || Ve.parentNode;
+      window.addEventListener('scroll', Vq);
+      function Vq() {
+        window.scrollY >= Vm.offset().top - 500 && (Vk(Ve), window.removeEventListener('scroll', Vq));
+      }
+    });
+    function Vk(Ve) {
+      var Vm = document.createElement('div');
+      Vm.addClass('video-wrapper'), Vm.innerHTML = Ve.textContent.replace('video', "").trim(), Ve.after(Vm), Ve.remove();
+    }
+  }
+  function VZ() {
+    if (_$("#authors-page").found()) {
+      var VN = new URLSearchParams(location.search);
+      if (VN.get('name')) {
+        window.Aup_Posts_Content = new String(), window.Aup_Name = decodeURI(VN.get('name')).replace(/\+/g, " "), window.Aup_Info = AuthorsInfo.filter(function (Vl) {
+          return Vl.name == Aup_Name;
+        })[0];
+        if (!window.Aup_Info) return;
+        window.Aup_avatar = Aup_Info.avatar || AltAuthor, Aup_avatar = resizeImg(Aup_avatar, 160, 160, '-cc');
+        var Vp;
+        document.title = Aup_Name, _$('.post-body').innerHTML = '<div class="aup-wrapper"><div class="aup-head"><div class="aup-photo" style="background-image:url(' + Aup_avatar + ')"></div></div><h1 class="aup-name">' + Aup_Name + '</h1><span class="aup-title"></span><p class="aup-about"><p><div class="aup-social social"></div><div class="aup-posts" role="feed"></div>';
+        if (Aup_Info) {
+          Aup_Info.about && (_$(".aup-about").innerHTML = Aup_Info.about);
+          Aup_Info.rank && (_$('.aup-title').innerHTML = '<b>' + Aup_Info.rank + '</b>');
+          if (Object.keys(Aup_Info.links).length > 0) for (site in Aup_Info.links) {
+            x.indexOf(site) != -1 ? Vp = '<a class="fa fa-' + site + '" href="' + Aup_Info.links[site] + '"><svg><use href="#ic-' + site + '"/></svg></a>' : Vp = '<a class="fa fa-' + site + '" href="' + Aup_Info.links[site] + '"></a>', _$('.aup-social').append(Vp);
+          }
+        }
+        FeedEnabled && !isPrivate && Vy();
+      } else FeedEnabled && !isPrivate && Vz();
+    }
+  }
+  function Vy() {
+    if (d === feed_count) {
+      var VN = _$('.timeline-month');
+      _$(".timeline-item").each(function (Vl) {
+        var VE = VN.filter(function (Vc) {
+          return Vc.getAttribute('data-month') == Vl.getAttribute('data-month');
+        })[0];
+        VE.append(Vl);
+      }), VN.each(function (Vl, VE) {
+        Vl.querySelector('.timeline-item') ? Vl.querySelectorAll('.timeline-month-name,.timeline-point').each(function (Vc) {
+          Vc.removeClass('hide');
+        }) : Vl.remove();
+      });
+    } else {
+      var Vp = P || Y ? 'https://www.blogger.com/feeds/' + a : '/feeds';
+      $getJSONP(Vp + "/posts/summary?alt=json-in-script&max-results=150&start-index=" + (d * 150 + 1), function (Vl) {
+        Vl.feed.entry.each(function (VE, Vc) {
+          if (!VE.app$control) {
+            var VU = V4(VE);
+            VU.Author === Aup_Name && (Aup_Posts_Content += '<div class="timeline-month" data-month="' + V3(VU.FullDate) + " " + VU.FullDate.substr(0, 4) + '">', Aup_Posts_Content += '<b class="timeline-point hide"></b>', Aup_Posts_Content += '<div class="timeline-month-name hide"><span>' + V3(VU.FullDate) + " " + VU.FullDate.substr(0, 4) + "</span></div>", Aup_Posts_Content += '<div class="timeline-item" role="article" data-month="' + V3(VU.FullDate) + " " + VU.FullDate.substr(0, 4) + '">', Aup_Posts_Content += '<span class="timeline-date">', Aup_Posts_Content += '<b>' + VU.FullDate.substr(8, 2) + '</b>', Aup_Posts_Content += "<i>" + V3(VU.FullDate) + " " + VU.FullDate.substr(0, 4) + '</i>', Aup_Posts_Content += '</span>', Aup_Posts_Content += '<b class="timeline-point"></b>', Aup_Posts_Content += '<div class="timeline-post">', Aup_Posts_Content += '<img class="timeline-thumb" src="' + resizeImg(VU.ImgUrl, 72, 72, '-cc') + '"/>', Aup_Posts_Content += '<a class="timeline-title" href="' + VU.Link + '" title="' + VU.Title + '">' + VU.Title + '</a>', Aup_Posts_Content += "</div>", Aup_Posts_Content += '</div>', Aup_Posts_Content += '</div>');
+          }
+        }), _$(".aup-posts").append(Aup_Posts_Content), Aup_Posts_Content = "", d += 1, Vy();
+      });
+    }
+  }
+  function Vz() {
+    d === feed_count ? (_$('.post-body').innerHTML = '<div class="blog-authors"></div>', AuthorsInfo.each(function (VN, Vp) {
+      var Vl = new String(),
+        VE = VN.avatar || AltAuthor,
+        Vc,
+        VU = location.pathname + '?name=' + VN.name;
+      Vl += '<div class="blog-author-card" data-blog-author="' + VN.name + '">', Vl += '<b class="blog-author-name">' + VN.name + '</b>', Vl += '<span class="blog-author-avatar" style="background-image:url(' + resizeImg(VE, 120, 120, '-cc') + ')"></span>', Vl += VN.rank ? '<b class="blog-author-rank">' + VN.rank + '</b>' : "", Vl += '<div class="blog-author-social"></div>', Vl += '<b class="blog-author-count">' + VN.count + " " + trans[15] + "</b>", Vl += '<a href="' + VU + '" class="blog-author-link">' + trans[19] + '</a>', Vl += '</div>', _$('.blog-authors').append(Vl);
+      if (VN.links) for (site in VN.links) {
+        x.indexOf(site) != -1 ? Vc = '<a class="fa fa-' + site + '" href="' + VN.links[site] + '"><svg><use href="#ic-' + site + '"/></svg></a>' : Vc = '<a class="fa fa-' + site + '" href="' + VN.links[site] + '"></a>', _$('[data-blog-author="' + VN.name + '"] .blog-author-social').append(Vc);
+      }
+    })) : $getJSON("/feeds/posts/summary?alt=json&max-results=150&start-index=" + (d * 150 + 1), function (VN) {
+      VN.feed.entry.each(function (Vp, Vl) {
+        var VE = AuthorsInfo.filter(function (VU) {
+          return VU.name === Vp.author[0].name.$t.toString();
+        })[0];
+        if (VE) VE.count += 1;else {
+          var Vc = {};
+          Vc.name = Vp.author[0].name.$t, Vc.avatar = Vp.author[0].gd$image ? Vp.author[0].gd$image.src : AltAuthor, Vc.count = 1, Vc.provided = false, AuthorsInfo.push(Vc);
+        }
+      }), d += 1, Vz();
+    });
+  }
+  function VO() {
+    if (_$('#archive-page').found()) {
+      Object.keys(v).each(function (Vp, Vl) {
+        var VE = v[Vp],
+          Vc = Math.ceil(VE / 150),
+          VU = decodeURI(Vp);
+        _$('.post-body').append('<div class="arp-label" id="l-' + Vl + '"><div class="arp-label-name"><b>' + VU + '</b><span class="arp-label-count">' + VE + ' <u>' + trans[15] + "</u></span></div></div>"), FeedEnabled && !isPrivate && VN(Vl, 0, VU, Vc);
+      });
+      function VN(Vp, Vl, VE, Vc) {
+        var VU = P || Y ? "https://www.blogger.com/feeds/" + a : '/feeds';
+        $getJSONP(VU + '/posts/summary/-/' + encodeURIComponent(VE) + "?alt=json-in-script&max-results=150&start-index=" + (Vl * 150 + 1), function (VP) {
+          VP.feed.entry.each(function (VY) {
+            if (!VY.app$control) {
+              var VH = V4(VY),
+                Vb = new String();
+              Vb += '<div class="arp-item">', Vb += '<img class="arp-thumb" src="' + resizeImg(VH.ImgUrl, 72, 72) + '"/>', Vb += '<span class="arp-date">' + VH.Date + '</span>', VY.category[1] !== undefined && (Vb += '<span class="arp-cate">' + VY.category.filter(function (VC) {
+                return VC.term != VE;
+              })[0].term + "</span>"), Vb += '<a class="arp-link" href="' + VH.Link + '">' + VH.Title + '</a>', Vb += '</div>', _$('#l-' + Vp).append(Vb);
+            }
+          }), Vl = Vl + 1, Vl != Vc && VN(Vp, Vl, VE, Vc);
+        });
+      }
+    }
+  }
+  function VX(VN) {
+    var Vp;
+    if (b) _$('body').append('<div class="redirect-modal notr"><div class="modal-overlay">' + _$('.Loading').innerHTML + '<div class="modal-content notr"><div class="modal-head"><div class="modal-title"></div><span class="modal-close fa fa-times"></i></div><div class="modal-body"></div></div></div></div>'), _$(".redirect-modal").fadeIn(), _$('body').setAttribute('data-overflow', false), $load(e, function (VP) {
+      var VY = new DOMParser().parseFromString(VP, 'text/html');
+      _$('.modal-body').innerHTML = VY.querySelector('.post-body').innerHTML, _$(".modal-title").textContent = VY.querySelector('.entry-title').textContent, Vc(VN), VY.querySelectorAll(".post-body ins").each(function () {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      });
+    });else {
+      if (_$('#redirect-page').found()) {
+        var Vl = new URLSearchParams(location.search);
+        VN = Vl.get('link') ? decodeURIComponent(Vl.get("link")) : sessionStorage.link, Vl.delete("link");
+        var VE = Vl.toString() ? "?" + Vl.toString() : "";
+        VN != "undefined" && (sessionStorage.link = VN, history.replaceState("", "", location.origin + location.pathname + VE), Vc(VN));
+      }
+    }
+    document.body.onclick = function (VP) {
+      VP.target && VP.target.hasClass('modal-close') && VU();
+    };
+    function Vc(VP) {
+      var VY = new String(),
+        VH = Q;
+      VY += '<div class="cLoaderWrap">', VY += '<svg id="cLoaderSVG" width="120" height="120" xmlns="http://www.w3.org/2000/svg">', VY += '<circle class="cPath" r="70" cy="100" cx="100"/>', VY += '<circle class="cLoader" r="70" cy="100" cx="100"/>', VY += '</svg>', VY += '<b class="cCount">' + Q + "</b>", VY += '</div>', VY += '<div class="cButton">', VY += '<a target="_blank" class="cLink disabled sq-button xl" rel="nofollow noreferrer">' + trans[24] + '</a>', VY += '</div>', document.querySelector('#redirect-page').innerHTML = VY;
+      var Vb = parseInt(getComputedStyle(_$('.cLoader')).strokeDasharray);
+      Vp = setInterval(VC, 1e3);
+      function VC() {
+        VH == 0 ? (_$('#cLoaderSVG').after('<i class="fa fa-check cLoaded zoom"></i>'), _$('.cLoader').addClass("done"), _$('.cLink').removeClass('disabled'), _$(".cLink").textContent = trans[25], clearInterval(Vp), VP && (_$('.cLink').setAttribute('href', VP), R && location.assign(VP))) : (_$('.cCount').addClass("zoom"), setTimeout(function () {
+          _$('.cCount').removeClass('zoom');
+        }, 800), _$('.cCount').textContent = VH < 10 ? "0" + VH : VH, VH--, _$('.cLoader').style['stroke-dashoffset'] = Vb - (Q - VH) * (Vb / Q));
+      }
+      window.onblur = function () {
+        clearInterval(Vp);
+      }, window.onfocus = function () {
+        Vp = VH != 0 ? setInterval(VC, 1e3) : undefined;
+      };
+    }
+    function VU() {
+      clearInterval(Vp), _$('.redirect-modal').fadeOut(400, function (VP) {
+        VP.remove(), _$('body').setAttribute('data-overflow', true);
+      });
+    }
+  }
+  function VA() {
+    var VN = AuthorsInfo.filter(function (Vq) {
+        return Vq.name === AuthorName;
+      })[0],
+      Vp = VN ? VN.provided : false,
+      Vl = VN && Vp ? VN : AuthorsInfo,
+      VE = Vs(),
+      Vc = Vl['top-ad'] ? Vl['top-ad'] : AuthorsInfo['top-ad'] ? AuthorsInfo["top-ad"] : null,
+      VU = Vl['mid-ad'] ? Vl["mid-ad"] : AuthorsInfo['mid-ad'] ? AuthorsInfo["mid-ad"] : null,
+      VP = Vl['bot-ad'] ? Vl["bot-ad"] : AuthorsInfo['bot-ad'] ? AuthorsInfo['bot-ad'] : null,
+      VY = Vl['str-ad'] ? Vl['str-ad'] : AuthorsInfo['str-ad'] ? AuthorsInfo['str-ad'] : null,
+      VH = Vl['pgn-ad'] ? Vl['pgn-ad'] : AuthorsInfo['pgn-ad'] ? AuthorsInfo['pgn-ad'] : null,
+      Vb = Vl["rlt-ad"] ? Vl['rlt-ad'] : AuthorsInfo['rlt-ad'] ? AuthorsInfo['rlt-ad'] : null,
+      VC = Vl['cmt-ad'] ? Vl['cmt-ad'] : AuthorsInfo['cmt-ad'] ? AuthorsInfo['cmt-ad'] : null,
+      Vk = Vl['end-ad'] ? Vl['end-ad'] : AuthorsInfo['end-ad'] ? AuthorsInfo['end-ad'] : null,
+      Ve = Vl["spc-ad"] ? Vl['spc-ad'] : AuthorsInfo['spc-ad'] ? AuthorsInfo['spc-ad'] : null;
+    (function Vq() {
+      if (Ve) {
+        var Vx = Array.from($('.post-body *')).find(Vh => Vh.innerText == "$$");
+        Vx && (Vx.outerHTML = '<div class="spc-ad"></div>', _$('.spc-ad').each(function (Vh) {
+          Vh.appendElements(Ve, 'append', 'spcAd');
+        }));
+      }
+      PagedPost && VH && (_$('.post-pages').after('<div class="article-ad pgn-ad"></div>'), _$('.pgn-ad').appendElements(VH, 'pgnAd'));
+      if (VY) _$('.str-ad').appendElements(VY, 'strAd');
+      if (Vc) _$(".top-ad").appendElements(Vc, 'topAd');
+      if (VP) _$('.bot-ad').appendElements(VP, 'botAd');
+      if (Vb) _$('.rlt-ad').appendElements(Vb, 'rltAd');
+      if (VC) _$('.cmt-ad').appendElements(VC, 'cmtAd');
+      if (Vk) _$(".end-ad").appendElements(Vk, "endAd");
+      if (c && !PagedPost) {
+        var Vv = _$('.post-body').querySelectorAll("h2,h3,h4,h5,h6");
+        if (Vv.length > 0 && VU) Vv.each(function (Vh) {
+          Vh.before('<div class="Middle-Ad"></div>');
+        });else {
+          if (VU) VE.after('<div class="Middle-Ad"></div>');
+        }
+      } else {
+        if (PagedPost) {} else {
+          if (VU) VE.after('<div class="Middle-Ad"></div>');
+        }
+      }
+      VU && _$('.Middle-Ad').each(function (Vh) {
+        Vh.appendElements(VU, 'midAd');
+      }), setTimeout(function () {
+        _$('ins.adsbygoogle:empty').each(function (Vh) {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+      }, 1e3);
+    })();
+    if (VN && Vp) {
+      var Vm;
+      _$('.topic-author .clear-left').after(VN.rank ? '<b class=\'author-rank\'>' + VN.rank + '</b>' : ""), _$('.topic-author .author-about').innerHTML = VN.about ? VN.about : "", Object.keys(VN.links).each(function (Vx) {
+        x.indexOf(Vx) != -1 ? Vm = '<a target="_blank" title="' + Vx + '" class="fa fa-' + Vx + '" href="' + VN.links[Vx] + '"><svg><use href="#ic-' + Vx + '"></a></svg></a>' : Vm = '<a target="_blank" title="' + Vx + '" class="fa fa-' + Vx + '" href="' + VN.links[Vx] + '"></a>', _$(".topic-author .social").append(Vm);
+      }), _$(".topic-author").style.display = 'block';
+    }
+  }
+  function VQ(VN, Vp) {
+    Vp = Vp - 10;
+    if (VN.offsetWidth < Vp) return VQ(VN.parentElement, Vp);else {
+      var Vl = document.createElement('div'),
+        VE = {};
+      return VE.width = '100%', Vl.css(VE), VN.after(Vl), Vl.offsetWidth < Vp ? VQ(VN.parentElement, Vp) : (Vl.remove(), VN);
+    }
+  }
+  function Vs() {
+    let VN = _$('.post-body'),
+      Vp = VN.offsetWidth,
+      Vl,
+      VE;
+    return VN.querySelectorAll('pre *,ins *,iframe *, blockquote:not(.twitter-tweet) *,ul *,ol *,.separator *,br,table, table *,.ContactForm, .ContactForm *,.premium, .premium *,h2,h3,h4,h5,h2 *, h3 *, h4 *, h5 *, .Middle-Ad, .Middle-Ad *').each(function (Vc) {
+      Vc.addClass("ns");
+    }), Vl = VN.querySelectorAll('*:not(.ns)'), VE = Vl[Math.floor(Vl.length / 2)], VE = VQ(VE, Vp), VE;
+  }
+  function VR() {
+    _$('.post-body blockquote:not(.twitter-tweet)').each(function (VN) {
+      var Vp = '<div class="quote-share">';
+      Vp += '<a target="_blank" title="share to Facebook" rel="nofollow noreferrer" href="https://www.facebook.com/sharer/sharer.php?v=4&u=' + W + '&quote=' + VN.textContent + '" class="quote-fb"><i class="fa fa-facebook"></i></a>';
+      if (VN.textContent.length + 23 > 280) var Vl = VN.textContent.length + 23 - 280,
+        VE = VN.textContent.substr(0, VN.textContent.length - Vl - 5) + "...";else VE = VN.textContent;
+      Vp += '<a target="_blank" title="tweet" rel="nofollow noreferrer" href="https://twitter.com/intent/tweet?url=' + W + '&text=' + VE + ' :" class="quote-tw"><i class="fa fa-twitter"></i></a>', VN.append(Vp);
+    });
+  }
+  function VI() {
+    _$('.zooming i').onClick(function (VN) {
+      var Vp = VN.target,
+        Vl = _$('.post-body, .post-body *:not(br)');
+      Vl.each(function (VE) {
+        var Vc = parseInt(VE.css('fontSize'));
+        if (Vp.hasClass('fa-plus')) VE.style.fontSize = Vc + 2 + "px";else Vp.hasClass("fa-minus") && (VE.style.fontSize = Vc - 2 + "px");
+      });
+    });
+  }
+  function Vw() {
+    navExcuted = false, window.addEventListener('scroll', function () {
+      (window.scrollY + window.innerHeight > _$(".topic-nav").offset().top && !navExcuted || !N && !navExcuted) && (navExcuted = true, _$('.next,.prev').each(function (VN) {
+        var Vp = VN.href,
+          Vl = VN.hasClass('prev') ? trans[21] : trans[20];
+        $load(Vp, function (VE) {
+          VE = new DOMParser().parseFromString(VE, 'text/html');
+          var Vc = VE.querySelector('meta[name=\'postPoster\']').getAttribute('content');
+          Vc = Vc !== "" ? Vc : AltImage, Vc = resizeImg(Vc, Math.ceil(VN.offsetWidth - 20), 160), VN.append('<span class="next-txt">' + Vl + '</span>'), VN.append("<b>" + VE.querySelector('meta[name=\'postTitle\']').getAttribute('content') + '</b>'), VN.append('<div class="topic-img"><img src="' + Vc + '"></div>');
+        });
+      }));
+    });
+  }
+  function VL() {
+    var VN = false;
+    window.addEventListener('scroll', function () {
+      if (window.scrollY + window.innerHeight > _$('.post-outer').offset().top && !VN || !N && !VN) {
+        VN = true;
+        let VE = Array.from(document.querySelectorAll('.categ a:nth-of-type(n+2)'), function (Vb, VC) {
+            return Vb.textContent;
+          }),
+          Vc = [itemId],
+          VU = Array.from(_$('.post-body *')).find(Vb => Vb.innerText == '<->'),
+          VP = VU ? VU : I == 'end' ? _$('.post-body') : Vs(),
+          VY = 0,
+          VH;
+        VP.after('<div class="see-also"><strong>' + trans[36] + "</strong><ul></ul></div>");
+        VU && VU.remove();
+        if (VE.length == 1) VH = "/feeds/posts/summary/-/" + VE[0] + '?alt=json&max-results=6';else {
+          if (VE.length > 1) {
+            var Vp = VE.filter(function (Vb) {
+              return Vb.indexOf(" ") == -1;
+            });
+            Vp ? VH = "/feeds/posts/summary/?category=" + Vp.join(",") + '&alt=json&max-results=6' : VH = "/feeds/posts/summary/-/" + VE[0] + '?alt=json&max-results=6';
+          } else VY = 10, VH = "/feeds/posts/summary/?alt=json&max-results=6";
+        }
+        Vl(VH);
+        function Vl(Vb) {
+          VY++, $getJSON(Vb, function (VC) {
+            if (VC.feed.entry != undefined) {
+              VC.feed.entry.each(function (Ve, Vm) {
+                var Vq = V4(Ve);
+                Vc.indexOf(Vq.PostId) == -1 && (_$('.see-also ul').append('<li><a href="' + Vq.Link + '" title="' + Vq.Title + '">' + Vq.Title + "</a></li>"), Vc.push(Vq.PostId));
+              });
+              var Vk = document.querySelectorAll('.see-also li');
+              Vk.length < 5 && PostCount > 5 && VY < 2 && VE.length > 1 && (VE = VE.filter(function (Ve) {
+                return Ve.indexOf(" ") == -1;
+              }).join('|label:'), Vl("/feeds/posts/summary/?q=label:" + VE + '&alt=json&max-results=6'));
+            }
+          });
+        }
+      }
+    });
+  }
+  function Vi() {
+    relExcuted = false, window.onscroll = function () {
+      if (window.scrollY + window.innerHeight > _$(".topic-related").offset().top && !relExcuted || !N && !relExcuted) {
+        relExcuted = true;
+        var VN,
+          Vp,
+          Vl,
+          VE = [itemId],
+          Vc = P || Y ? 'https://www.blogger.com/feeds/' + a : "/feeds",
+          VU = new String(),
+          VP = Array.from(document.querySelectorAll(".categ a:nth-of-type(n+2)"), Ve => Ve.textContent),
+          VY = 0,
+          VH;
+        if (FeedEnabled && !isPrivate) {
+          if (VP.length == 1) Vp = Vc + '/posts/summary/-/' + VP[0] + '?alt=json-in-script&max-results=' + A;else {
+            if (VP.length > 1) {
+              var Vb = VP.filter(function (Ve) {
+                return Ve.indexOf(" ") == -1;
+              }).join('|label:');
+              Vb ? Vp = Vc + '/posts/summary/?q=label:' + Vb + "&alt=json-in-script&max-results=" + A : Vp = Vc + '/posts/summary/-/' + VP[0] + '?alt=json-in-script&max-results=' + A;
+            } else Vp = Vc + '/posts/summary/?alt=json-in-script&max-results=' + A;
+          }
+          $getJSONP(Vp, function (Ve) {
+            Vk(Ve), VC(), Ve.feed.entry.length < A + 1 && (VY = A + 1 - Ve.feed.entry.length, Vl = Vc + "/posts/summary?alt=json-in-script&max-results=" + VY, $getJSONP(Vl, function (Vm) {
+              Vk(Vm), VC();
+            }));
+          });
+        }
+        function Vk(Ve) {
+          for (VN = 0; VN < Ve.feed.entry.length; VN = VN + 1) {
+            if (!Ve.feed.entry[VN].app$control) {
+              var Vm = V4(Ve.feed.entry[VN]);
+              if (VE.indexOf(Vm.PostId) == -1) {
+                VE.push(Vm.PostId);
+                var Vq = showAuthor && Vm.Author_URI !== "#" ? '<a rel="nofollow noreferrer" href="' + Vm.Author_URI + '"><span class="author-prof"><i class="fa fa-user-circle"></i>' + Vm.Author + '</span></a>' : "",
+                  Vx = showTimestamp ? '<span class="post-date"><i class="fa fa-calendar-times-o"></i>' + Vm.Date + "</span>" : "",
+                  Vv = '<div class="Item notr splide__slide"><div class="item-wrap"><a title="' + Vm.Title + '" href="' + Vm.Link + '" class="img-wrap PLHolder"><img style="opacity:0" class="rel-img notr" data-rel-src="' + Vm.ImgUrl + '" title="' + Vm.Title + '" alt="' + Vm.Title + '"/><div class="overlay"></div><span class="label-title">' + Vm.Category + '</span></a><div class="details">' + Vq + Vx + '</div><h3><a title="' + Vm.Title + '" href="' + Vm.Link + '">' + Vm.Title + '</a></h3></div></div>';
+                _$(".related-carousel").hasClass("flickity-enabled") ? VH.add(Vv) : _$('.related-carousel .splide__list').append(Vv);
+              }
+            }
+          }
+        }
+        function VC() {
+          V6(function () {
+            var Ve = {};
+            Ve.perPage = 2;
+            var Vm = {};
+            Vm.perPage = 3;
+            var Vq = {};
+            Vq.perPage = 2;
+            var Vx = {};
+            Vx.perPage = 1;
+            var Vv = {};
+            Vv['1160'] = Ve, Vv["992"] = Vm, Vv['802'] = Vq, Vv['640'] = Vx;
+            var Vh = {};
+            Vh.direction = BlogDirection, Vh.pagination = false, Vh.rewind = true, Vh.perMove = 1, Vh.perPage = 3, Vh.breakpoints = Vv, VH = new Splide('.related-carousel', Vh).mount(), LazyImages("data-rel-src", null, true);
+          });
+        }
+      }
+    };
+  }
+  !a && V9(1);
+}();
